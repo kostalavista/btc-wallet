@@ -1,10 +1,9 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {Menu} from 'antd';
 import 'antd/dist/antd.css';
 import {ProfileOutlined, WalletOutlined} from '@ant-design/icons';
 import styled from 'styled-components';
 import {NavLink} from "react-router-dom";
-// import {hashHistory} from 'react-router'
 
 const Styles = styled.div`
 	width: 200px;

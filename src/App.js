@@ -10,7 +10,8 @@ const Styles = styled.div`
 	align-items: flex-start;
 	height: 100%;
 	.content {
-		width: calc(100% - 200px)
+		width: calc(100% - 200px);
+		padding: 20px;
 	}
 `;
 
