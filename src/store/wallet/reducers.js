@@ -1,6 +1,8 @@
-import {GENERATE_SEED} from './actionTypes';
+import {GENERATE_SEED, UPDATE_SEED} from './actionTypes';
 
 export const initialState = {
+	seed: '',
+	addresses: [],
 };
 
 export const walletReducer = (state = initialState, {type, payload} = {}) => {
@@ -8,8 +10,13 @@ export const walletReducer = (state = initialState, {type, payload} = {}) => {
 		case GENERATE_SEED:
 			return {
 				...state,
+				addresses: payload,
 			};
-
+		case UPDATE_SEED:
+			return {
+				...state,
+				seed: payload,
+			};
 		case 'RESET':
 			return initialState;
 		default:

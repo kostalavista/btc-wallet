@@ -1,1 +1,2 @@
 export const GENERATE_SEED = `GENERATE_SEED`;
+export const UPDATE_SEED = `UPDATE_SEED`;
