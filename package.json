@@ -3,13 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@testing-library/jest-dom": "^5.11.4",
-    "@testing-library/react": "^11.1.0",
-    "@testing-library/user-event": "^12.1.10",
     "ant-design": "^1.0.0",
     "antd": "^4.8.6",
     "axios": "^0.21.0",
-    "bip32": "^2.0.6",
     "bip32-utils": "^0.11.1",
     "bip39": "^3.0.3",
     "bitcoinjs-lib": "3.3.2",

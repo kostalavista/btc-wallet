@@ -37,7 +37,7 @@ const AddressInfo = (props) => {
 	const dispatch = useDispatch();
 
 	const addressInfo = useSelector(state => state.walletReducer.addressInfo);
-	console.log(addressInfo)
+
 	useEffect(() => {
 		if (address) dispatch(getAddressInfo(address));
 	}, [address, dispatch]);

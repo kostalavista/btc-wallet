@@ -23,7 +23,7 @@ const Transactions = () => {
 
 	useEffect(() => {
 		dispatch(generateAddresses());
-	}, []);
+	}, [dispatch]);
 
 	const columns = [
 		{title: 'Time', dataIndex: 'time', key: 'time'},
