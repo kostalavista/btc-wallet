@@ -8,7 +8,7 @@
     "axios": "^0.21.0",
     "bip32-utils": "^0.11.1",
     "bip39": "^3.0.3",
-    "bitcoinjs-lib": "3.3.2",
+    "bitcoinjs-lib": "^3.3.2",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-redux": "^7.2.2",
@@ -22,8 +22,7 @@
     "web-vitals": "^0.2.4"
   },
   "scripts": {
-    "dev": "react-scripts start",
-    "start": "serve -s build",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
