@@ -1,4 +1,4 @@
-import {UPDATE_SEED, UPDATE_ADDRESSES_INFO} from './actionTypes';
+import {UPDATE_SEED, UPDATE_ADDRESS_INFO, UPDATE_ADDRESSES_INFO} from './actionTypes';
 import {generateMnemonic, mnemonicToSeedSync} from 'bip39';
 import {API_URL, countAddressesDefault} from "../../config";
 import {request} from "../../utils/request";
@@ -11,8 +11,13 @@ const updateSeed = data => ({
 	payload: data
 });
 
-const updateAddressInfo = data => ({
+const updateAddressesInfo = data => ({
 	type: UPDATE_ADDRESSES_INFO,
+	payload: data
+});
+
+const updateAddressInfo = data => ({
+	type: UPDATE_ADDRESS_INFO,
 	payload: data
 });
 
@@ -58,6 +63,14 @@ export const addAddress = () => {
 export const getAddressesInfo = (addresses) => {
 	return dispatch => {
 		request('GET', `${API_URL}/addresses/${addresses.join(',')}`).then(res => {
+			dispatch(updateAddressesInfo(res));
+		});
+	}
+};
+
+export const getAddressInfo = (address) => {
+	return dispatch => {
+		request('GET', `${API_URL}/address/${address}`).then(res => {
 			dispatch(updateAddressInfo(res));
 		});
 	}

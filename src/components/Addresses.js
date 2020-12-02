@@ -1,10 +1,11 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import styled from 'styled-components';
 import 'antd/dist/antd.css';
 import {Button} from 'antd';
 import {addAddress, generateAddresses} from "../store/wallet/actions";
 import {useDispatch, useSelector} from "react-redux";
-import {Table, Tag, Space} from 'antd';
+import {Table, Modal} from 'antd';
+import { useHistory } from "react-router-dom";
 
 const Styles = styled.div`
 	.head {
@@ -27,12 +28,20 @@ const Styles = styled.div`
 		}
 	}
 	.address-action {
-		margin-top: 20px;
+		margin-bottom: 20px;
+	}
+	.ant-table-row {
+		cursor: pointer;
 	}
 `;
 
 const Addresses = () => {
 	const dispatch = useDispatch();
+	const history = useHistory();
+
+	const routeChange = (address) =>{
+		history.push(`address-info/${address}`);
+	};
 
 	const addressesInfo = useSelector(state => state.walletReducer.addressesInfo);
 	const seed = useSelector(state => state.walletReducer.seed);
@@ -63,10 +72,12 @@ const Addresses = () => {
 				<div className="seed__value">{seed}</div>
 			</div>
 			}
-			<Table columns={columns} dataSource={data} pagination={false}/>
 			<div className="address-action">
 				<Button type="primary" onClick={() => dispatch(addAddress())}>Add address</Button>
 			</div>
+			<Table columns={columns} dataSource={data} pagination={false} onRow={(r) => ({
+				onClick: () => routeChange(r.address),
+			})}/>
 		</Styles>
 	);
 };

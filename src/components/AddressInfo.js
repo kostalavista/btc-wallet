@@ -1,10 +1,11 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import styled from 'styled-components';
-import {useDispatch, useSelector} from "react-redux";
-import {generateAddresses} from "../store/wallet/actions";
-import {formattingDate} from "../utils/date";
 import 'antd/dist/antd.css';
-import {Table, Tag} from 'antd';
+import {Tag} from 'antd';
+import {getAddressInfo} from "../store/wallet/actions";
+import {useDispatch, useSelector} from "react-redux";
+import {Table} from 'antd';
+import {formattingDate} from "../utils/date";
 
 const Styles = styled.div`
 	.head {
@@ -14,16 +15,32 @@ const Styles = styled.div`
 		padding: 10px;
 		text-transform: uppercase;
 	}
+	.seed {
+		display: flex;
+		align-items: center;
+		margin-bottom: 20px;
+		.seed__title {
+			font-weight: bold;
+			padding-left: 20px;
+		}
+		.seed__value {
+			margin: 0 20px;
+		}
+	}
+	.address-action {
+		margin-top: 20px;
+	}
 `;
 
-const Transactions = () => {
+const AddressInfo = (props) => {
+	const address = props.match.params.address;
 	const dispatch = useDispatch();
 
-	const addressesInfo = useSelector(state => state.walletReducer.addressesInfo);
-
+	const addressInfo = useSelector(state => state.walletReducer.addressInfo);
+	console.log(addressInfo)
 	useEffect(() => {
-		dispatch(generateAddresses());
-	}, []);
+		if (address) dispatch(getAddressInfo(address));
+	}, [address]);
 
 	const columns = [
 		{title: 'Time', dataIndex: 'time', key: 'time'},
@@ -41,26 +58,26 @@ const Transactions = () => {
 
 	const data = [];
 
-	addressesInfo.forEach((addr) => {
-		addr.transactions.forEach((transact, i) => {
+	if (addressInfo.transactions) {
+		addressInfo.transactions.forEach((transact, i) => {
 			data.push({
-				key: addr.address + i,
+				key: address + i,
 				time: formattingDate(transact.time),
-				firstAddress: addr.address,
+				firstAddress: address,
 				type: transact.isIncoming,
 				secondAddress: transact.secondAddress,
 				value: transact.value,
 				commission: transact.commission,
 			});
 		});
-	});
+	}
 
 	return (
 		<Styles>
-			<div className="head">Transactions</div>
-			<Table columns={columns} dataSource={data}/>
+			<div className="head">{address}</div>
+			<Table columns={columns} dataSource={data} pagination={false}/>
 		</Styles>
 	);
 };
 
-export default Transactions;
+export default AddressInfo;
