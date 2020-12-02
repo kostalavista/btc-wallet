@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import styled from 'styled-components';
 import 'antd/dist/antd.css';
 import {Tag} from 'antd';
@@ -40,7 +40,7 @@ const AddressInfo = (props) => {
 	console.log(addressInfo)
 	useEffect(() => {
 		if (address) dispatch(getAddressInfo(address));
-	}, [address]);
+	}, [address, dispatch]);
 
 	const columns = [
 		{title: 'Time', dataIndex: 'time', key: 'time'},

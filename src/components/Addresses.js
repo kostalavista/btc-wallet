@@ -1,10 +1,10 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import styled from 'styled-components';
 import 'antd/dist/antd.css';
 import {Button} from 'antd';
 import {addAddress, generateAddresses} from "../store/wallet/actions";
 import {useDispatch, useSelector} from "react-redux";
-import {Table, Modal} from 'antd';
+import {Table} from 'antd';
 import { useHistory } from "react-router-dom";
 
 const Styles = styled.div`
@@ -48,7 +48,7 @@ const Addresses = () => {
 
 	useEffect(() => {
 		dispatch(generateAddresses());
-	}, []);
+	}, [dispatch]);
 
 	const columns = [
 		{title: 'Address', dataIndex: 'address', key: 'address'},
