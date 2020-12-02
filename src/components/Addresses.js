@@ -34,7 +34,7 @@ const Styles = styled.div`
 const Addresses = () => {
 	const dispatch = useDispatch();
 
-	const addresses = useSelector(state => state.walletReducer.addresses);
+	const addressesInfo = useSelector(state => state.walletReducer.addressesInfo);
 	const seed = useSelector(state => state.walletReducer.seed);
 
 	useEffect(() => {
@@ -46,11 +46,11 @@ const Addresses = () => {
 		{title: 'Balance', dataIndex: 'balance', key: 'balance'},
 	];
 
-	const data = addresses.map((addr, i) => {
+	const data = addressesInfo.map((addr, i) => {
 		return {
 			key: i,
-			address: addr,
-			balance: 42,
+			address: addr.address,
+			balance: addr.balance,
 		};
 	});
 

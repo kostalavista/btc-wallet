@@ -1,21 +1,21 @@
-import {GENERATE_SEED, UPDATE_SEED} from './actionTypes';
+import {UPDATE_SEED, UPDATE_ADDRESSES_INFO} from './actionTypes';
 
 export const initialState = {
 	seed: '',
-	addresses: [],
+	addressesInfo: [],
 };
 
 export const walletReducer = (state = initialState, {type, payload} = {}) => {
 	switch (type) {
-		case GENERATE_SEED:
-			return {
-				...state,
-				addresses: payload,
-			};
 		case UPDATE_SEED:
 			return {
 				...state,
 				seed: payload,
+			};
+		case UPDATE_ADDRESSES_INFO:
+			return {
+				...state,
+				addressesInfo: payload,
 			};
 		case 'RESET':
 			return initialState;

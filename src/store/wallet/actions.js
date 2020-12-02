@@ -1,17 +1,18 @@
-import {GENERATE_SEED, UPDATE_SEED} from './actionTypes';
+import {UPDATE_SEED, UPDATE_ADDRESSES_INFO} from './actionTypes';
 import {generateMnemonic, mnemonicToSeedSync} from 'bip39';
-import {countAddressesDefault} from "../../config";
+import {API_URL, countAddressesDefault} from "../../config";
+import {request} from "../../utils/request";
 
 const bitcoin = require('bitcoinjs-lib');
 const bip32utils = require('bip32-utils');
 
-const generateAddressesSuccess = data => ({
-	type: GENERATE_SEED,
+const updateSeed = data => ({
+	type: UPDATE_SEED,
 	payload: data
 });
 
-const updateSeed = data => ({
-	type: UPDATE_SEED,
+const updateAddressInfo = data => ({
+	type: UPDATE_ADDRESSES_INFO,
 	payload: data
 });
 
@@ -39,7 +40,7 @@ export const generateAddresses = () => {
 
 		for (let k = 0; k < +addressesCount; ++k) addresses.push(chain.next());
 
-		dispatch(generateAddressesSuccess(addresses));
+		dispatch(getAddressesInfo(addresses));
 	}
 };
 
@@ -51,5 +52,13 @@ export const addAddress = () => {
 		localStorage.setItem('addressesCount', newAddressesCount);
 
 		dispatch(generateAddresses());
+	}
+};
+
+export const getAddressesInfo = (addresses) => {
+	return dispatch => {
+		request('GET', `${API_URL}/addresses/${addresses.join(',')}`).then(res => {
+			dispatch(updateAddressInfo(res));
+		});
 	}
 };
